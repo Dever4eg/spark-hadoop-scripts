@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  hadoop-namenode:
+    build: ./hadoop
+    ports:
+      - "9870:9870"
+    volumes:
+      - ./hadoop/hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
+    entrypoint: bash -c '/namenode-entrypoint.sh'
+
+  hadoop-datanode:
+    build: ./hadoop
+    volumes:
+      - ./hadoop/hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
+    command: bash -c '$$HADOOP_HOME/bin/hdfs datanode'
+    depends_on:
+      - hadoop-namenode
+
+  spark-master:
+    build: ./spark
+    ports:
+      - "8080:8080"
+    command: bash -c '$$SPARK_HOME/bin/spark-class org.apache.spark.deploy.master.Master'
+
+  spark-worker:
+    build: ./spark
+    command: bash -c '$$SPARK_HOME/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077'
