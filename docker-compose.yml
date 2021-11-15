@@ -14,8 +14,29 @@ services:
     volumes:
       - ./hadoop/hdfs-site.xml:/opt/hadoop/etc/hadoop/hdfs-site.xml
     command: bash -c '$$HADOOP_HOME/bin/hdfs datanode'
-    depends_on:
-      - hadoop-namenode
+
+  hadoop-yarn:
+    build: yarn
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./yarn/core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
+      - ./yarn/yarn-site.xml:/opt/hadoop/etc/hadoop/yarn-site.xml
+    command: bash -c 'service ssh start && $$HADOOP_HOME/bin/yarn resourcemanager'
+
+  hadoop-yarn-node-1:
+    build: yarn
+    volumes:
+      - ./yarn/core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
+      - ./yarn/yarn-site.xml:/opt/hadoop/etc/hadoop/yarn-site.xml
+    command: bash -c 'service ssh start && $$HADOOP_HOME/bin/yarn nodemanager'
+
+  hadoop-yarn-node-2:
+    build: yarn
+    volumes:
+      - ./yarn/core-site.xml:/opt/hadoop/etc/hadoop/core-site.xml
+      - ./yarn/yarn-site.xml:/opt/hadoop/etc/hadoop/yarn-site.xml
+    command: bash -c 'service ssh start && $$HADOOP_HOME/bin/yarn nodemanager'
 
   spark-master:
     build: ./spark

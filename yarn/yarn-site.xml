@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property>
+        <description>The hostname of the RM.</description>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>hadoop-yarn</value>
+    </property>
+
+    <property>
+        <name>yarn.acl.enable</name>
+        <value>0</value>
+    </property>
+</configuration>
