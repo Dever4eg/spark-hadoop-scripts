@@ -36,9 +36,9 @@ RUN ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa && \
 
 COPY --from=spark /opt/spark /opt/spark
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
-ENV SPARK_HOME /opt/spark
-ENV HADOOP_CONF_DIR /opt/hadoop/etc/hadoop
-ENV HADOOP_HOME /opt/hadoop
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+ENV SPARK_HOME=/opt/spark
+ENV HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+ENV HADOOP_HOME=/opt/hadoop
 
-ENV PATH ${PATH}:${JAVA_HOME}/bin:${HADOOP_HOME}/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin
+ENV PATH=${PATH}:${JAVA_HOME}/bin:${HADOOP_HOME}/bin:$SPARK_HOME/bin:$SPARK_HOME/sbin

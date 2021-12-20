@@ -18,9 +18,9 @@ RUN ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa && \
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
     chmod 0600 ~/.ssh/authorized_keys
 
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
-ENV HADOOP_HOME /opt/hadoop
-ENV PATH ${PATH}:${JAVA_HOME}/bin:${HADOOP_HOME}/bin:
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+ENV HADOOP_HOME=/opt/hadoop
+ENV PATH=${PATH}:${JAVA_HOME}/bin:${HADOOP_HOME}/bin:
 
 COPY ./namenode-entrypoint.sh /namenode-entrypoint.sh
 RUN chmod +x /namenode-entrypoint.sh
